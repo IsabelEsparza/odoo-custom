@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+        <record id="email_template_welcome" model="mail.template">
+            <field name="name">Bienvenida - Email</field>
+            <field name="email_from">${(ctx['user_id'].email or '')|safe}</field>
+            <field name="subject">${object.company_id.name|safe}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="stock.action_report_picking"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tbody><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"><tbody><tr><td valign="middle"><img src="http://localhost:8069/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}" class="padding-small o_we_selected_image" data-original-title="" title="" aria-describedby="tooltip235780" style="padding: 0px; text-align: -webkit-right; margin: 0px; height: auto; width: 143.5px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td><td valign="middle" align="right"><br></td></tr>
+            </tbody></table>
+        </td>
+    </tr>
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tbody><tr><td valign="top" style="font-size: 13px;">
+                    <div>&nbsp;
+                        <br><img class="img-fluid o_we_custom_image" src="/web/image/661/bienvenida.jpg?access_token=76938ba6-b591-4fa0-af91-8ddef235bb25" data-original-title="" title="" aria-describedby="tooltip656481"><br>
+                        <br>&nbsp;Hola <b>Alejandro Sanchez</b><div style="margin: 16px 0px 16px 0px;">
+                            <a href="${object.signup_url}" style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;" data-original-title="" title="" aria-describedby="tooltip346850">
+                                Accept invitation
+                            </a>
+                        </div>
+                        % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')
+                        Your Odoo domain is: <b><a href="${website_url}">${website_url}</a></b><br>
+                        Your sign in email is: <b><a href="/web/login?login=${object.email}" target="_blank">${object.email}</a></b><br><br>
+                        Never heard of Odoo? It’s an all-in-one business software loved by 3+ million users. It will considerably improve your experience at work and increase your productivity.
+                        <br><br>
+                        Have a look at the <a href="https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth" style="color: #875A7B;">Odoo Tour</a> to discover the tool.
+                        <br><br>
+                        Enjoy Odoo!<br>
+                        --<br>The ${object.company_id.name} Team
+                    </div>
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;">
+                </td></tr>
+            </tbody></table>
+        </td>
+    </tr>
+    <!-- FOOTER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tbody><tr><td valign="middle" align="left">
+                    ${object.company_id.name}
+                </td></tr>
+                <tr><td valign="middle" align="left" style="opacity: 0.7;">
+                    ${object.company_id.phone}
+                    % if object.company_id.email
+                        | <a href="'mailto:%s' % ${object.company_id.email}" style=" color: #454748;">${object.company_id.email}</a>
+                    % endif
+                    % if object.company_id.website
+                        | <a href="'%s' % ${object.company_id.website}" style=" color: #454748;">
+                        ${object.company_id.website}
+                    </a>
+                    % endif
+                </td></tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody>
+</table>
+</td></tr>
+</tbody></table>
+            ]]></field>
+        </record>
+
+</odoo>
