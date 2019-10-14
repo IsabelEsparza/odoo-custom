@@ -1,81 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo noupdate="1">
-
+<odoo noupdate="0">
         <record id="email_template_welcome" model="mail.template">
             <field name="name">Bienvenida - Email</field>
-            <field name="email_from">${(ctx['user_id'].email or '')|safe}</field>
-            <field name="subject">${object.company_id.name|safe}</field>
-            <field name="partner_to">${object.partner_id.id}</field>
-            <field name="model_id" ref="base.model_res_users"/>
+            <field name="model_id" ref="portal.model_portal_wizard_user"/>
+            <field name="email_to"></field>
             <field name="auto_delete" eval="True"/>
-            <field name="report_template" ref="stock.action_report_picking"/>
-            <field name="report_name">${(object.name or '').replace('/','_')}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
-<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tbody><tr><td align="center">
-<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
-<tbody>
-    <!-- HEADER -->
-    <tr>
-        <td align="center" style="min-width: 590px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"><tbody><tr><td valign="middle"><img src="http://localhost:8069/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}" class="padding-small o_we_selected_image" data-original-title="" title="" aria-describedby="tooltip235780" style="padding: 0px; text-align: -webkit-right; margin: 0px; height: auto; width: 143.5px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td><td valign="middle" align="right"><br></td></tr>
-            </tbody></table>
-        </td>
-    </tr>
-    <!-- CONTENT -->
-    <tr>
-        <td align="center" style="min-width: 590px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
-                <tbody><tr><td valign="top" style="font-size: 13px;">
-                    <div>&nbsp;
-                        <br><img class="img-fluid o_we_custom_image" src="/web/image/661/bienvenida.jpg?access_token=76938ba6-b591-4fa0-af91-8ddef235bb25" data-original-title="" title="" aria-describedby="tooltip656481"><br>
-                        <br>&nbsp;Hola <b>Alejandro Sanchez</b><div style="margin: 16px 0px 16px 0px;">
-                            <a href="${object.signup_url}" style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;" data-original-title="" title="" aria-describedby="tooltip346850">
-                                Accept invitation
-                            </a>
-                        </div>
-                        % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')
-                        Your Odoo domain is: <b><a href="${website_url}">${website_url}</a></b><br>
-                        Your sign in email is: <b><a href="/web/login?login=${object.email}" target="_blank">${object.email}</a></b><br><br>
-                        Never heard of Odoo? It’s an all-in-one business software loved by 3+ million users. It will considerably improve your experience at work and increase your productivity.
-                        <br><br>
-                        Have a look at the <a href="https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth" style="color: #875A7B;">Odoo Tour</a> to discover the tool.
-                        <br><br>
-                        Enjoy Odoo!<br>
-                        --<br>The ${object.company_id.name} Team
-                    </div>
-                </td></tr>
-                <tr><td style="text-align:center;">
-                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;">
-                </td></tr>
-            </tbody></table>
-        </td>
-    </tr>
-    <!-- FOOTER -->
-    <tr>
-        <td align="center" style="min-width: 590px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
-                <tbody><tr><td valign="middle" align="left">
-                    ${object.company_id.name}
-                </td></tr>
-                <tr><td valign="middle" align="left" style="opacity: 0.7;">
-                    ${object.company_id.phone}
-                    % if object.company_id.email
-                        | <a href="'mailto:%s' % ${object.company_id.email}" style=" color: #454748;">${object.company_id.email}</a>
-                    % endif
-                    % if object.company_id.website
-                        | <a href="'%s' % ${object.company_id.website}" style=" color: #454748;">
-                        ${object.company_id.website}
-                    </a>
-                    % endif
-                </td></tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody>
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+    <tbody>
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                    <tbody>
+                        <!-- HEADER -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="middle">
+                                                <p>
+                                                    <img src="custom-ecommerce/static/galea_logonegro.png" class="padding-small" style="padding: 0px; text-align: -webkit-right; margin: 0px; height: auto; width: 143.5px;"/>
+                                                    <br/>
+                                                </p>
+                                            </td>
+                                            <td width="220"></td>
+                                            <td valign="middle">
+                                                <img class="img-fluid o_we_custom_image" src="custom-ecommerce/static/facebook-logo-button.png" style="padding: 5px; width: 45px; height: 45px;"/>
+                                                <img class="img-fluid o_we_custom_image" src="custom-ecommerce/static/youtube-logotype.png" style="padding: 5px; width: 45px; height: 45px;"/>
+                                                <img class="img-fluid o_we_custom_image" src="custom-ecommerce/static/instagram.png" style="padding: 5px; width: 45px; height: 45px;"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <br/>
+                                <img class="img-fluid o_we_custom_image" src="custom-ecommerce/static/bienvenida.jpg" style="width: 590px; height: 320px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>&nbsp;&nbsp;<br/><br/>
+                                                    <font style="font-size: 12px;">Hola&nbsp;${object.user_id.name}</font><br/><br/><font style="font-size: 12px;">&nbsp;Estás a punto de dar el primer paso para empezar el crecimiento de tu propio negocio.</font><br/><font style="font-size: 12px;">Con Galea tendrás los mejores precios y los productos mas solicitados en el mercado Mexicano.&nbsp;</font><br/><br/><font style="font-size: 12px;">&nbsp;Activa tu cuenta para obtener los siguientes beneficios:</font><br/>
+                                                    <ul>
+                                                        <li><font style="font-size: 12px;">Estado de pedido en línea.</font></li>
+                                                        <li><font style="font-size: 12px;">Lista de amor.&nbsp;</font></li>
+                                                        <li><font style="font-size: 12px;">Correos electrónicos exclusivos.</font></li>
+                                                        <li><font style="font-size: 12px;">Guardar direcciones de envío.</font></li>
+                                                        <li><font style="font-size: 12px;">Preferencias de pago.</font></li>
+                                                    </ul>
+                                                    <a href="http://localhost:8069/$%7Bobject.signup_url%7D" data-original-title="" style="color: rgb(255, 255, 255); background-color: rgb(135, 90, 123); padding: 8px 16px; border-radius: 10px;">Activar cuenta&nbsp;</a><br/><br/>
+                                                    <font style="font-size: 12px;">Att: Galea Shop México</font>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <p style="font-size: 9px;">
+                                    Este es un correo de cáracter informativo, favor de no responderlo. Si tienes alguna duda, consulta nuestra sección de Ayuda, si ya no desea recibir ofertas de productos y otros correos electrónicos de marketingde nosotros, haga clic aquí. 
+                                    Tenga en cuenta que puede continuar recibiendo mensajes de correo electrónico transaccionales y operativos, como reestablecimiento de contraseña o información relacionada con la cuenta.
+                                    Para leer nuestra política de privacidad, haga clic aquí. Galea Monterrey Nuevo León México. 
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
 </table>
-</td></tr>
-</tbody></table>
             ]]></field>
         </record>
 
